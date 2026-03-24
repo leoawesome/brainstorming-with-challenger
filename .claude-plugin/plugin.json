@@ -1,0 +1,12 @@
+{
+  "name": "advance-brainstorming",
+  "description": "Enhanced brainstorming skill with customizable challenger team that stress-tests designs through parallel agents",
+  "version": "1.0.0",
+  "author": {
+    "name": "leoawesome"
+  },
+  "homepage": "https://github.com/leoawesome/brainstorming-with-challenger",
+  "repository": "https://github.com/leoawesome/brainstorming-with-challenger",
+  "license": "MIT",
+  "keywords": ["skills", "brainstorming", "challengers", "stress-test", "design-review"]
+}

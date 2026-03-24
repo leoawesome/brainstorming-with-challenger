@@ -1,13 +1,17 @@
 ---
 name: brainstorming
-description: "You MUST use this before any creative work - creating features, building components, adding functionality, or modifying behavior. Explores user intent, requirements and design before implementation."
+description: "Use when user says 'brainstorm with challengers', 'challenge this idea', or 'stress-test this'. Enhanced brainstorming that stress-tests designs through parallel challenger agents before finalizing. Requires superpowers plugin."
 ---
 
-# Brainstorming Ideas Into Designs
+# Brainstorming Ideas Into Designs (with Challengers)
+
+## Usage
+
+To start: say **"brainstorm with challengers"** or invoke the skill directly.
 
 ## Overview
 
-Help turn ideas into fully formed designs and specs through natural collaborative dialogue.
+Help turn ideas into fully formed designs and specs through natural collaborative dialogue, then stress-test them through a team of parallel challenger agents before finalizing.
 
 Start by understanding the current project context, then ask questions one at a time to refine the idea. Once you understand what you're building, propose approaches, run them through a challenger team, then present the strongest design and get user approval.
 
@@ -26,11 +30,11 @@ You MUST create a task for each of these items and complete them in order:
 1. **Explore project context** — check files, docs, recent commits
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 3. **Propose 2-3 approaches** — with trade-offs and your recommendation
-4. **Challenge approaches** — read `skills/brainstorming/challenge-protocol.md` and run Challenge Point 1 (stress-test)
+4. **Challenge approaches** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 1 (stress-test)
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Challenge completeness** — read `skills/brainstorming/challenge-protocol.md` and run Challenge Point 2 (completeness check)
-7. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and commit
-8. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+6. **Challenge completeness** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 2 (completeness check)
+7. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and ask user if they want to commit
+8. **Transition to implementation** — invoke `superpowers:writing-plans` skill to create implementation plan
 
 ## Process Flow
 
@@ -68,7 +72,8 @@ digraph brainstorming {
     "Dispatch challenger agents" -> "Synthesize challenge results";
     "Synthesize challenge results" -> "Present design sections" [label="all clear (silent)"];
     "Synthesize challenge results" -> "Revise approaches" [label="issues found"];
-    "Revise approaches" -> "Present design sections";
+    "Revise approaches" -> "Dispatch challenger agents" [label="substantial revisions"];
+    "Revise approaches" -> "Present design sections" [label="minor revisions"];
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
     "User approves design?" -> "Dispatch completeness agents" [label="yes"];
@@ -80,16 +85,17 @@ digraph brainstorming {
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is `superpowers:writing-plans`.
 
 ## The Process
 
 **Understanding the idea:**
 - Check out the current project state first (files, docs, recent commits)
 - Before asking detailed questions, assess scope: if the request describes multiple independent subsystems, flag this immediately. Don't spend questions refining details of a project that needs to be decomposed first.
+- If the project is too large for a single spec, help the user decompose into sub-projects. Each sub-project gets its own spec → plan → implementation cycle.
 - Ask questions one at a time to refine the idea
 - Prefer multiple choice questions when possible, but open-ended is fine too
-- Only one question per message - if a topic needs more exploration, break it into multiple questions
+- Only one question per message
 - Focus on understanding: purpose, constraints, success criteria
 
 **Exploring approaches:**
@@ -121,8 +127,9 @@ digraph brainstorming {
 - Do NOT auto-commit. Ask the user if they want to commit after they've verified the file.
 
 **Implementation:**
-- Invoke the writing-plans skill to create a detailed implementation plan
+- Invoke the `superpowers:writing-plans` skill to create a detailed implementation plan
 - Do NOT invoke any other skill. writing-plans is the next step.
+- If `superpowers:writing-plans` is not available, inform the user: "The superpowers plugin is required for the next step. Please install it to continue."
 
 ## Key Principles
 
