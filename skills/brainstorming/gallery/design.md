@@ -26,4 +26,4 @@ suggest-when: "The task involves UI layout, visual design, styling, animations, 
 - Be specific and constructive. If you find a flaw, explain the flaw AND propose the better alternative.
 - Do NOT nitpick or manufacture issues. Only flag things that would meaningfully change the design.
 - If available, review the actual screenshot/mockup, not just the code description.
-- If everything is solid from your perspective, respond with exactly: "NO_ISSUES" (stress-test) or "COMPLETE" (completeness).
+- Respond "NO_ISSUES" (stress-test) or "COMPLETE" (completeness) if nothing to flag.

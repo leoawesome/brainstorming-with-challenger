@@ -32,6 +32,7 @@ All challengers live in the `gallery/` directory. None are active by default —
 5. The user can approve all, remove some, or add others from the gallery
 6. Approved challengers are active for all subsequent challenge dispatches in this session
 7. If the user declines all challengers, proceed but note: "No challengers active — skipping stress-test steps."
+8. If no `.md` files are found in the `gallery/` directory, skip the suggestion step and proceed without challengers. Note: "No challengers available in gallery — skipping challenge steps."
 
 **Important:** Challenger selection is session-only. Each brainstorming session evaluates the gallery fresh.
 
