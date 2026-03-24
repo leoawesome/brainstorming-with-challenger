@@ -11,9 +11,12 @@ The purpose of challenges is quality, not ceremony. If all challengers find noth
 ## Loading Challengers
 
 1. Read all `.md` files in the `challengers/` directory (sibling to this file)
-2. Each file has frontmatter with `name` and `when` fields
-3. Dispatch challengers where `when: always`, plus `when: ui-only` if the change involves UI/UX
-4. If no challenger files are found, skip the challenge step and proceed as if all returned NO_ISSUES. Log: "No challengers configured — skipping challenge."
+2. Each file has YAML frontmatter with `name` and `when` fields
+3. The `when` field accepts exactly two values:
+   - `always` — dispatched for every challenge
+   - `ui-only` — dispatched only when the change involves UI/UX (layout, styling, visual hierarchy, animations, component design)
+4. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
+5. If no challenger files are found, skip the challenge step and proceed as if all returned NO_ISSUES. Log: "No challengers configured — skipping challenge."
 
 ## Shared Context for All Challengers
 

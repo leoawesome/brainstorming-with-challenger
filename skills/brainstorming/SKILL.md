@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: "Use when user says 'brainstorm with challengers', 'challenge this idea', or 'stress-test this'. Enhanced brainstorming that stress-tests designs through parallel challenger agents before finalizing. Requires superpowers plugin."
+description: "Use ONLY when user explicitly says 'brainstorm with challengers', 'challenge this idea', or 'stress-test this'. Do NOT use for general brainstorming — that is handled by superpowers:brainstorming. This skill adds parallel challenger agents that stress-test designs. Requires superpowers plugin."
 ---
 
 # Brainstorming Ideas Into Designs (with Challengers)
