@@ -29,8 +29,8 @@ Say **"brainstorm with challengers"** to start. You can also use phrases like:
 
 The skill follows the standard brainstorming flow (explore context, ask questions, propose approaches), but adds **smart challenger suggestions** and two **challenge points**:
 
-1. **After clarifying questions** — the skill scans the gallery of domain challengers and suggests relevant ones for your task (e.g., "this involves user data — add Security and Data Privacy challengers?"). You approve or skip.
-2. **After proposing approaches** — all active challengers stress-test for flaws, gaps, and counter-arguments
+1. **After clarifying questions** — the skill scans the challenger gallery, picks relevant ones for your task, and asks you to confirm. Devil's Advocate is always recommended.
+2. **After proposing approaches** — approved challengers stress-test for flaws, gaps, and counter-arguments
 3. **After user approves the design** — challengers check for completeness before writing the spec
 
 Challengers are **silent by default** — if they find nothing wrong, you won't even know they ran.
@@ -46,11 +46,13 @@ You: brainstorm with challengers — I want to build a customer feedback portal
 
 Claude: [explores project context, asks clarifying questions one at a time]
 
-Claude: Based on what we're building, I'd recommend adding these challengers
-  alongside the defaults:
-  - **Security Challenger** — feedback portal handles user-submitted data
-  - **Data Privacy Challenger** — collecting and storing user information
-  Want to include them for this session?
+Claude: For this session, I'd recommend these challengers:
+  - **Devil's Advocate** — always recommended to challenge assumptions
+  - **Technical Challenger** — building a web portal with backend
+  - **Product Challenger** — user-facing feature with workflows
+  - **Security Challenger** — handles user-submitted data
+  - **Data Privacy Challenger** — collecting user information
+  Want to include them? You can also add or remove any.
 
 You: yes
 
@@ -59,17 +61,17 @@ Claude: Here are 3 approaches:
   B. Embedded widget in existing app
   C. Third-party tool integration
 
-  # At this point, challengers are dispatched silently in parallel:
-  # - Technical Challenger finds: "Approach A duplicates auth — use SSO instead"
-  # - Devil's Advocate argues: "Approach B is simpler and avoids a separate deploy"
+  # Challengers dispatch silently in parallel:
+  # - Technical Challenger: "Approach A duplicates auth — use SSO instead"
+  # - Devil's Advocate: "Approach B is simpler and avoids a separate deploy"
+  # - Security Challenger: "Approach C sends data to third party — privacy risk"
   # - Product Challenger: NO_ISSUES
-  #
-  # Claude synthesizes the feedback and strengthens the approaches:
+  # - Data Privacy Challenger: NO_ISSUES
 
 Claude: After stress-testing, I've refined the approaches:
   A. Standalone portal with SSO (strengthened — avoids auth duplication)
   B. Embedded widget (elevated — simpler deploy story)
-  C. Third-party integration
+  C. Third-party integration (flagged — data leaves your control)
 
   [presents design sections, gets your approval]
 
@@ -81,23 +83,18 @@ Claude: Design doc written to docs/plans/2026-03-25-feedback-portal-design.md
 
 ## Token Usage Note
 
-Each brainstorming session dispatches 3-4 challenger agents at two checkpoints (6-8 agent calls total). Each agent explores the codebase independently. This provides thorough review but uses more tokens than standard brainstorming. For small changes, only the Devil's Advocate runs (1 agent per checkpoint).
-
-## Default Challengers
-
-| Challenger | Runs | Focus |
-|---|---|---|
-| **Technical** | Always | Architecture, scalability, performance |
-| **Product** | Always | UX, edge states, accessibility |
-| **Devil's Advocate** | Always | Strongest counter-argument, hidden assumptions |
-| **Design** | UI/UX only | Visual hierarchy, polish, responsive design |
+Each brainstorming session dispatches challenger agents at two checkpoints. The number of agents depends on how many challengers you approve — typically 3-5 per checkpoint. Each agent explores the codebase independently. This provides thorough review but uses more tokens than standard brainstorming. For small changes, only the Devil's Advocate runs (1 agent per checkpoint).
 
 ## Challenger Gallery
 
-The plugin ships with pre-built domain challengers in `skills/brainstorming/gallery/`. These are **not active by default** — the skill automatically suggests relevant ones based on your task:
+All challengers live in `skills/brainstorming/gallery/`. The skill suggests relevant ones each session based on your task — you approve, remove, or add before the challenge runs.
 
-| Gallery Challenger | Suggested When |
+| Challenger | Suggested When |
 |---|---|
+| **Devil's Advocate** | Always (recommended every session) |
+| **Technical** | Software architecture, APIs, databases, system design |
+| **Product** | User-facing features, workflows, dashboards |
+| **Design** | UI layout, visual design, styling, animations |
 | **Security** | Auth, user input, APIs, payments, file uploads |
 | **Compliance** | User data, consent, regulated industries |
 | **Business Viability** | New products, revenue impact, pricing |
@@ -105,34 +102,33 @@ The plugin ships with pre-built domain challengers in `skills/brainstorming/gall
 | **Accessibility** | User-facing UI, forms, navigation, media |
 | **Data Privacy** | Data collection, analytics, tracking, third-party sharing |
 
-You can also add your own challengers to the gallery for automatic suggestion.
-
 ## Customization
 
-Each challenger is a standalone `.md` file in `skills/brainstorming/challengers/` (always active) or `gallery/` (suggested per session). To customize:
+Each challenger is a standalone `.md` file in `skills/brainstorming/gallery/`. To customize:
 
 - **Edit** existing files to change focus areas
-- **Add** new `.md` files for new roles (e.g., `security.md`, `business-viability.md`)
+- **Add** new `.md` files for new roles
 - **Remove** files to disable roles
 
 ### Example: adding a custom challenger
 
-A product lead might add `challengers/business-viability.md`:
+A product lead might add `gallery/market-fit.md`:
 
 ```markdown
 ---
-name: Business Viability Challenger
+name: Market Fit Challenger
 when: always
+suggest-when: "The task involves a new product, feature launch, or user acquisition strategy"
 ---
 
 ## Focus — Stress-Test
-- Does this align with our revenue model?
-- What's the cost to build vs expected return?
-- Are we solving a problem customers are willing to pay for?
+- Is there evidence users want this?
+- What's the smallest version that tests the core assumption?
+- Who are the first 10 users and how do we reach them?
 
 ## Focus — Completeness
-- Is the go-to-market strategy addressed?
-- Are pricing implications considered?
+- Are success metrics defined?
+- Is there a feedback loop to validate after launch?
 
 ## Rules
 - Be specific and constructive.
@@ -141,14 +137,9 @@ when: always
 
 ### Challenger file format
 
-The `when` field accepts:
-- `always` — runs for every challenge
-- `ui-only` — runs only when the change involves UI/UX
-
-Gallery challengers also have a `suggest-when` field that describes when the skill should suggest them:
-```yaml
-suggest-when: "The task involves authentication, payment processing, or API endpoints"
-```
+- `name` — display name shown during suggestion
+- `when` — `always` (runs for every challenge) or `ui-only` (only for UI/UX changes)
+- `suggest-when` — describes when the skill should suggest this challenger. Use `always` to always suggest (like Devil's Advocate)
 
 ## License
 

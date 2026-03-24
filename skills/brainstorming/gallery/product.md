@@ -1,6 +1,7 @@
 ---
 name: Product Challenger
 when: always
+suggest-when: "The task involves user-facing features, user journeys, workflows, onboarding, notifications, dashboards, or any product experience decisions"
 ---
 
 ## Focus — Stress-Test

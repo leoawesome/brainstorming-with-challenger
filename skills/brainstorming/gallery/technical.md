@@ -1,6 +1,7 @@
 ---
 name: Technical Challenger
 when: always
+suggest-when: "The task involves software architecture, APIs, databases, data models, system design, backend logic, infrastructure, or any code implementation"
 ---
 
 ## Focus — Stress-Test

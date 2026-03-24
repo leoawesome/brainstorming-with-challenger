@@ -1,6 +1,6 @@
 # Challenge Protocol
 
-At two key points in the brainstorming process, dispatch challenger agents **in parallel** to stress-test the work. Read all `.md` files in the `challengers/` directory (relative to this file) — each file defines one challenger role. Dispatch one Agent per file.
+At two key points in the brainstorming process, dispatch challenger agents **in parallel** to stress-test the work. All challengers live in the `gallery/` directory (sibling to this file). They are selected per session based on task context.
 
 Challengers operate **silently by default** — they only surface findings when they identify genuine improvements or gaps.
 
@@ -8,39 +8,41 @@ Challengers operate **silently by default** — they only surface findings when 
 The purpose of challenges is quality, not ceremony. If all challengers find nothing wrong, proceed without mentioning the challenge ran. Only surface findings that would actually change the design.
 </IMPORTANT>
 
-## Gallery: Suggest-and-Confirm
+## Suggest-and-Confirm
 
-The `gallery/` directory (sibling to this file) contains pre-built domain-specific challengers. These are NOT active by default — they are suggested based on context.
+All challengers live in the `gallery/` directory. None are active by default — they are suggested based on context each session.
 
-**When to suggest:** After clarifying questions are complete and before proposing approaches, assess the task context against gallery challengers.
+**When to suggest:** After clarifying questions are complete and before proposing approaches.
 
 **How to suggest:**
 1. Read all `.md` files in the `gallery/` directory
-2. Each gallery challenger has a `suggest-when` field in its frontmatter describing when it's relevant
+2. Each challenger has a `suggest-when` field in its frontmatter:
+   - Most challengers describe the context where they're relevant (e.g., "The task involves authentication, APIs, or payment processing")
+   - Devil's Advocate has `suggest-when: always` — it is **always suggested** regardless of context, because it's universally useful
 3. Match the task context (user request + Q&A clarifications + project context) against each `suggest-when` description
-4. If any gallery challengers are relevant, present them to the user:
+4. Present all matched challengers to the user:
 
-> "Based on what we're building, I'd recommend adding these challengers alongside the defaults:
+> "For this session, I'd recommend these challengers:
+> - **Devil's Advocate** — always recommended to challenge assumptions
+> - **Technical Challenger** — [one-line reason why it's relevant to this task]
 > - **Security Challenger** — [one-line reason why it's relevant to this task]
-> - **Compliance Challenger** — [one-line reason why it's relevant to this task]
 >
-> Want to include them for this session?"
+> Want to include them? You can also add or remove any."
 
-5. If the user agrees, include those gallery challengers in all subsequent challenge dispatches for this session (treat them as if they were in `challengers/`)
-6. If no gallery challengers are relevant, skip this step silently — do not mention the gallery
+5. The user can approve all, remove some, or add others from the gallery
+6. Approved challengers are active for all subsequent challenge dispatches in this session
+7. If the user declines all challengers, proceed but note: "No challengers active — skipping stress-test steps."
 
-**Important:** Gallery challengers are session-only. They are not copied to `challengers/`. Each brainstorming session evaluates the gallery fresh.
+**Important:** Challenger selection is session-only. Each brainstorming session evaluates the gallery fresh.
 
 ## Loading Challengers
 
-1. Read all `.md` files in the `challengers/` directory (sibling to this file)
-2. Add any gallery challengers the user approved for this session
-3. Each file has YAML frontmatter with `name` and `when` fields
-4. The `when` field accepts exactly two values:
+1. Start with the challengers the user approved during suggest-and-confirm
+2. Each file has YAML frontmatter with `name` and `when` fields
+3. The `when` field accepts exactly two values:
    - `always` — dispatched for every challenge
    - `ui-only` — dispatched only when the change involves UI/UX (layout, styling, visual hierarchy, animations, component design)
-5. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
-6. If no challenger files are found, skip the challenge step and proceed as if all returned NO_ISSUES. Log: "No challengers configured — skipping challenge."
+4. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
 
 ## Shared Context for All Challengers
 
@@ -60,7 +62,7 @@ Each challenger agent is dispatched using the Agent tool with `subagent_type: "g
 
 **When:** After you propose 2-3 approaches, BEFORE presenting to the user.
 
-Dispatch all applicable challengers in parallel. Each agent should receive the shared context plus the proposed approaches.
+Dispatch all approved challengers in parallel. Each agent should receive the shared context plus the proposed approaches.
 
 **Agent prompt template (adapt per challenger role):**
 ```
@@ -94,7 +96,7 @@ You are a [CHALLENGER_NAME] reviewing proposed approaches.
 
 **When:** After the user approves the design sections, BEFORE writing the design doc.
 
-Dispatch all applicable challengers in parallel, but now focused on **completeness** rather than quality.
+Dispatch all approved challengers in parallel, but now focused on **completeness** rather than quality.
 
 **Agent prompt template (adapt per challenger role):**
 ```
@@ -130,7 +132,7 @@ Scale the challenge intensity to the feature's complexity:
 | Complexity | Signal | Challenge Level |
 |---|---|---|
 | **Small** | Config change, copy update, simple bugfix | Devil's Advocate only |
-| **Medium** | New component, API endpoint, single-screen feature | All applicable challengers |
-| **Large** | New system, architectural change, multi-screen feature | All applicable challengers |
+| **Medium** | New component, API endpoint, single-screen feature | All approved challengers |
+| **Large** | New system, architectural change, multi-screen feature | All approved challengers |
 
 Use your judgment. When in doubt, run the full challenge — the silent-by-default rule ensures it adds no noise if everything is fine.

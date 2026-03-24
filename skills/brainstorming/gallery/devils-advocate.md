@@ -1,6 +1,7 @@
 ---
 name: Devil's Advocate
 when: always
+suggest-when: always
 ---
 
 ## Focus — Stress-Test

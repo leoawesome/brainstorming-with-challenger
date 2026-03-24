@@ -1,6 +1,7 @@
 ---
 name: Design Challenger
 when: ui-only
+suggest-when: "The task involves UI layout, visual design, styling, animations, component design, responsive design, or visual hierarchy changes"
 ---
 
 ## Focus — Stress-Test
