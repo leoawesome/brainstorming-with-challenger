@@ -27,10 +27,11 @@ Say **"brainstorm with challengers"** to start. You can also use phrases like:
 
 ## How It Works
 
-The skill follows the standard brainstorming flow (explore context, ask questions, propose approaches), but adds two **challenge points** where parallel agents stress-test your work:
+The skill follows the standard brainstorming flow (explore context, ask questions, propose approaches), but adds **smart challenger suggestions** and two **challenge points**:
 
-1. **After proposing approaches** — challengers look for flaws, gaps, and counter-arguments
-2. **After user approves the design** — challengers check for completeness before writing the spec
+1. **After clarifying questions** — the skill scans the gallery of domain challengers and suggests relevant ones for your task (e.g., "this involves user data — add Security and Data Privacy challengers?"). You approve or skip.
+2. **After proposing approaches** — all active challengers stress-test for flaws, gaps, and counter-arguments
+3. **After user approves the design** — challengers check for completeness before writing the spec
 
 Challengers are **silent by default** — if they find nothing wrong, you won't even know they ran.
 
@@ -44,6 +45,14 @@ Here's what a typical session looks like:
 You: brainstorm with challengers — I want to build a customer feedback portal
 
 Claude: [explores project context, asks clarifying questions one at a time]
+
+Claude: Based on what we're building, I'd recommend adding these challengers
+  alongside the defaults:
+  - **Security Challenger** — feedback portal handles user-submitted data
+  - **Data Privacy Challenger** — collecting and storing user information
+  Want to include them for this session?
+
+You: yes
 
 Claude: Here are 3 approaches:
   A. Standalone portal with its own auth (recommended)
@@ -83,9 +92,24 @@ Each brainstorming session dispatches 3-4 challenger agents at two checkpoints (
 | **Devil's Advocate** | Always | Strongest counter-argument, hidden assumptions |
 | **Design** | UI/UX only | Visual hierarchy, polish, responsive design |
 
+## Challenger Gallery
+
+The plugin ships with pre-built domain challengers in `skills/brainstorming/gallery/`. These are **not active by default** — the skill automatically suggests relevant ones based on your task:
+
+| Gallery Challenger | Suggested When |
+|---|---|
+| **Security** | Auth, user input, APIs, payments, file uploads |
+| **Compliance** | User data, consent, regulated industries |
+| **Business Viability** | New products, revenue impact, pricing |
+| **Cost Optimization** | Infrastructure, cloud, scaling, third-party APIs |
+| **Accessibility** | User-facing UI, forms, navigation, media |
+| **Data Privacy** | Data collection, analytics, tracking, third-party sharing |
+
+You can also add your own challengers to the gallery for automatic suggestion.
+
 ## Customization
 
-Each challenger is a standalone `.md` file in `skills/brainstorming/challengers/`. To customize:
+Each challenger is a standalone `.md` file in `skills/brainstorming/challengers/` (always active) or `gallery/` (suggested per session). To customize:
 
 - **Edit** existing files to change focus areas
 - **Add** new `.md` files for new roles (e.g., `security.md`, `business-viability.md`)
@@ -120,6 +144,11 @@ when: always
 The `when` field accepts:
 - `always` — runs for every challenge
 - `ui-only` — runs only when the change involves UI/UX
+
+Gallery challengers also have a `suggest-when` field that describes when the skill should suggest them:
+```yaml
+suggest-when: "The task involves authentication, payment processing, or API endpoints"
+```
 
 ## License
 

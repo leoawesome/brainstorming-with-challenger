@@ -8,15 +8,39 @@ Challengers operate **silently by default** — they only surface findings when 
 The purpose of challenges is quality, not ceremony. If all challengers find nothing wrong, proceed without mentioning the challenge ran. Only surface findings that would actually change the design.
 </IMPORTANT>
 
+## Gallery: Suggest-and-Confirm
+
+The `gallery/` directory (sibling to this file) contains pre-built domain-specific challengers. These are NOT active by default — they are suggested based on context.
+
+**When to suggest:** After clarifying questions are complete and before proposing approaches, assess the task context against gallery challengers.
+
+**How to suggest:**
+1. Read all `.md` files in the `gallery/` directory
+2. Each gallery challenger has a `suggest-when` field in its frontmatter describing when it's relevant
+3. Match the task context (user request + Q&A clarifications + project context) against each `suggest-when` description
+4. If any gallery challengers are relevant, present them to the user:
+
+> "Based on what we're building, I'd recommend adding these challengers alongside the defaults:
+> - **Security Challenger** — [one-line reason why it's relevant to this task]
+> - **Compliance Challenger** — [one-line reason why it's relevant to this task]
+>
+> Want to include them for this session?"
+
+5. If the user agrees, include those gallery challengers in all subsequent challenge dispatches for this session (treat them as if they were in `challengers/`)
+6. If no gallery challengers are relevant, skip this step silently — do not mention the gallery
+
+**Important:** Gallery challengers are session-only. They are not copied to `challengers/`. Each brainstorming session evaluates the gallery fresh.
+
 ## Loading Challengers
 
 1. Read all `.md` files in the `challengers/` directory (sibling to this file)
-2. Each file has YAML frontmatter with `name` and `when` fields
-3. The `when` field accepts exactly two values:
+2. Add any gallery challengers the user approved for this session
+3. Each file has YAML frontmatter with `name` and `when` fields
+4. The `when` field accepts exactly two values:
    - `always` — dispatched for every challenge
    - `ui-only` — dispatched only when the change involves UI/UX (layout, styling, visual hierarchy, animations, component design)
-4. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
-5. If no challenger files are found, skip the challenge step and proceed as if all returned NO_ISSUES. Log: "No challengers configured — skipping challenge."
+5. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
+6. If no challenger files are found, skip the challenge step and proceed as if all returned NO_ISSUES. Log: "No challengers configured — skipping challenge."
 
 ## Shared Context for All Challengers
 

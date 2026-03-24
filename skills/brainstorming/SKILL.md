@@ -29,12 +29,13 @@ You MUST create a task for each of these items and complete them in order:
 
 1. **Explore project context** — check files, docs, recent commits
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
-3. **Propose 2-3 approaches** — with trade-offs and your recommendation
-4. **Challenge approaches** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 1 (stress-test)
-5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Challenge completeness** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 2 (completeness check)
-7. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and ask user if they want to commit
-8. **Transition to implementation** — invoke `superpowers:writing-plans` skill to create implementation plan
+3. **Suggest gallery challengers** — read `challenge-protocol.md` Gallery section, suggest relevant domain challengers based on task context, get user confirmation
+4. **Propose 2-3 approaches** — with trade-offs and your recommendation
+5. **Challenge approaches** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 1 (stress-test)
+6. **Present design** — in sections scaled to their complexity, get user approval after each section
+7. **Challenge completeness** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 2 (completeness check)
+8. **Write design doc** — save to `docs/plans/YYYY-MM-DD-<topic>-design.md` and ask user if they want to commit
+9. **Transition to implementation** — invoke `superpowers:writing-plans` skill to create implementation plan
 
 ## Process Flow
 
@@ -66,8 +67,14 @@ digraph brainstorming {
     "Write design doc" [shape=box];
     "Invoke writing-plans skill" [shape=doublecircle];
 
+    "Suggest gallery challengers?" [shape=diamond, color="#2266aa"];
+    "Suggest and confirm" [shape=box, color="#2266aa"];
+
     "Explore project context" -> "Ask clarifying questions";
-    "Ask clarifying questions" -> "Propose 2-3 approaches";
+    "Ask clarifying questions" -> "Suggest gallery challengers?";
+    "Suggest gallery challengers?" -> "Suggest and confirm" [label="relevant found"];
+    "Suggest gallery challengers?" -> "Propose 2-3 approaches" [label="none relevant\n(silent)"];
+    "Suggest and confirm" -> "Propose 2-3 approaches";
     "Propose 2-3 approaches" -> "Dispatch challenger agents";
     "Dispatch challenger agents" -> "Synthesize challenge results";
     "Synthesize challenge results" -> "Present design sections" [label="all clear (silent)"];
