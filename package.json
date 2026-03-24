@@ -1,6 +1,0 @@
-{
-  "name": "advance-brainstorming",
-  "version": "1.0.0",
-  "type": "module",
-  "main": ".opencode/plugins/advance-brainstorming.js"
-}
