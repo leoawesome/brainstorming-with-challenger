@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "advance-brainstorming",
-      "source": "./",
+      "source": "./plugin",
       "description": "Enhanced brainstorming with customizable challenger team that stress-tests designs through parallel agents",
       "version": "1.0.0"
     }

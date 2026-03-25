@@ -32,7 +32,7 @@ Whether you're designing a product feature, planning a marketing campaign, or ar
 **For local testing:**
 
 ```bash
-claude --plugin-dir /path/to/brainstorming-with-challenger
+claude --plugin-dir /path/to/brainstorming-with-challenger/plugin
 ```
 
 ## Usage
@@ -103,7 +103,7 @@ Each brainstorming session dispatches challenger agents at two checkpoints. The 
 
 ## Challenger Gallery
 
-All challengers live in `skills/brainstorming/gallery/`. The skill suggests relevant ones each session based on your task — you approve, remove, or add before the challenge runs.
+All challengers live in `plugin/skills/brainstorming/gallery/`. The skill suggests relevant ones each session based on your task — you approve, remove, or add before the challenge runs.
 
 | Challenger | Suggested When |
 |---|---|
@@ -120,7 +120,7 @@ All challengers live in `skills/brainstorming/gallery/`. The skill suggests rele
 
 ## Customization
 
-Each challenger is a standalone `.md` file in `skills/brainstorming/gallery/`. To customize:
+Each challenger is a standalone `.md` file in `plugin/skills/brainstorming/gallery/`. To customize:
 
 - **Edit** existing files to change focus areas
 - **Add** new `.md` files for new roles
@@ -128,7 +128,7 @@ Each challenger is a standalone `.md` file in `skills/brainstorming/gallery/`. T
 
 ### Example: adding a custom challenger
 
-A product lead might add `gallery/market-fit.md`:
+A product lead might add `plugin/skills/brainstorming/gallery/market-fit.md`:
 
 ```markdown
 ---
