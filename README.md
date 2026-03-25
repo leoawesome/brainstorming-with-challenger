@@ -11,17 +11,21 @@ Whether you're designing a product feature, planning a marketing campaign, or ar
 
 ## Installation
 
-**Install globally (one-time setup):**
+**Install via VS Code (recommended):**
 
-Run these commands inside Claude Code:
+1. Open the Claude Code panel in VS Code
+2. Type `/plugins` in the chat
+3. Go to **Marketplaces** tab → enter `leoawesome/brainstorming-with-challenger` → add it
+4. Go to **Plugins** tab → find **advance-brainstorming** → click **Install**
+5. Done — works in every session
+
+**Install via CLI:**
 
 ```
 /plugin marketplace add leoawesome/brainstorming-with-challenger
 /plugin install advance-brainstorming@advance-brainstorming-marketplace
 /reload-plugins
 ```
-
-That's it — the skill is now available in every Claude Code session.
 
 **Private repos:** This works with private repos too. As long as you have `git clone` access (e.g., added as a collaborator), Claude Code uses your existing git credentials. For auto-updates on private repos, set `GITHUB_TOKEN` in your shell config.
 
