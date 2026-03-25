@@ -1,10 +1,14 @@
 {
+  "name": "advance-brainstorming-marketplace",
+  "owner": {
+    "name": "leoawesome"
+  },
   "plugins": [
     {
       "name": "advance-brainstorming",
+      "source": ".",
       "description": "Enhanced brainstorming with customizable challenger team that stress-tests designs through parallel agents",
-      "version": "1.0.0",
-      "path": "."
+      "version": "1.0.0"
     }
   ]
 }
