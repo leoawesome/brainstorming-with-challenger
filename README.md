@@ -11,13 +11,26 @@ Whether you're designing a product feature, planning a marketing campaign, or ar
 
 ## Installation
 
-Test locally:
+**Install globally (one-time setup):**
+
+```bash
+# Step 1: Add the marketplace
+/plugin marketplace add leoawesome/brainstorming-with-challenger
+
+# Step 2: Install the plugin
+/plugin install advance-brainstorming@leoawesome-brainstorming-with-challenger
+
+# Step 3: Reload
+/reload-plugins
+```
+
+That's it — the skill is now available in every Claude Code session.
+
+**For local testing:**
 
 ```bash
 claude --plugin-dir /path/to/brainstorming-with-challenger
 ```
-
-Or install from a marketplace if available. After installing, run `/reload-plugins` to load the skill.
 
 ## Usage
 

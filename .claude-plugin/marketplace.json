@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    {
+      "name": "advance-brainstorming",
+      "description": "Enhanced brainstorming with customizable challenger team that stress-tests designs through parallel agents",
+      "version": "1.0.0",
+      "path": "."
+    }
+  ]
+}
