@@ -8,7 +8,7 @@
       "name": "advance-brainstorming",
       "source": "./plugin",
       "description": "Enhanced brainstorming with customizable challenger team that stress-tests designs through parallel agents",
-      "version": "1.0.0"
+      "version": "1.1.0"
     }
   ]
 }
