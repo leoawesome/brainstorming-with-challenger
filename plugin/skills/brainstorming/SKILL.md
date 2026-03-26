@@ -29,7 +29,7 @@ You MUST create a task for each of these items and complete them in order:
 
 1. **Explore project context** — check files, docs, recent commits
 2. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
-3. **Suggest gallery challengers** — read `challenge-protocol.md` Gallery section, suggest relevant domain challengers based on task context, get user confirmation
+3. **Suggest gallery challengers** — read `gallery/index.yaml` for the lightweight catalog, then follow `challenge-protocol.md` Suggest-and-Confirm section to suggest relevant challengers and get user confirmation (do NOT read individual challenger files yet)
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Challenge approaches** — read `challenge-protocol.md` (in the same directory as this skill) and run Challenge Point 1 (stress-test)
 6. **Present design** — in sections scaled to their complexity, get user approval after each section

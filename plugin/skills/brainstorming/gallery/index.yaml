@@ -1,0 +1,76 @@
+# Challenger Gallery Index
+# Lightweight catalog for suggest-and-confirm. Only approved challengers' full .md files are loaded at dispatch time.
+# When adding a new challenger, add an entry here AND create the corresponding .md file.
+
+challengers:
+  - name: Devil's Advocate
+    file: devils-advocate.md
+    when: always
+    suggest-when: always
+    description: "Argues against recommendations, finds biggest risks, proposes counter-approaches, challenges assumptions"
+
+  - name: Technical Challenger
+    file: technical.md
+    when: always
+    suggest-when: "software architecture, APIs, databases, data models, system design, backend logic, infrastructure, or code implementation"
+    description: "Challenges architecture decisions, scaling, data models, performance, API patterns, and technical trade-offs"
+
+  - name: Product Challenger
+    file: product.md
+    when: always
+    suggest-when: "user-facing features, user journeys, workflows, onboarding, notifications, dashboards, or product experience decisions"
+    description: "Challenges UX patterns, edge states, user flows, accessibility, and product experience completeness"
+
+  - name: Design Challenger
+    file: design.md
+    when: ui-only
+    suggest-when: "UI layout, visual design, styling, animations, component design, responsive design, or visual hierarchy changes"
+    description: "Challenges visual hierarchy, spacing, typography, responsive breakpoints, and design consistency across states"
+
+  - name: Security Challenger
+    file: security.md
+    when: always
+    suggest-when: "authentication, authorization, user input handling, payment processing, API endpoints, file uploads, or data storage"
+    description: "Challenges injection vectors, auth/authz, secrets handling, input validation, and OWASP Top 10 coverage"
+
+  - name: Compliance Challenger
+    file: compliance.md
+    when: always
+    suggest-when: "user data collection, personal information, consent flows, data retention, cross-border data transfer, or regulated industries (finance, healthcare, education)"
+    description: "Challenges GDPR/CCPA/HIPAA compliance, consent mechanisms, data subject rights, and regulatory requirements"
+
+  - name: Business Viability Challenger
+    file: business-viability.md
+    when: always
+    suggest-when: "new product, feature with revenue impact, pricing changes, market-facing decisions, or resource-intensive initiatives"
+    description: "Challenges business model alignment, cost vs. return, competitive differentiation, and go-to-market readiness"
+
+  - name: Cost Optimization Challenger
+    file: cost-optimization.md
+    when: always
+    suggest-when: "infrastructure, cloud services, scaling decisions, third-party API usage, or resource-intensive processing"
+    description: "Challenges infrastructure costs at scale, cheaper alternatives, hidden costs, and cost monitoring plans"
+
+  - name: Accessibility Challenger
+    file: accessibility.md
+    when: always
+    suggest-when: "user-facing interfaces, web or mobile UI, forms, navigation, media content, or interactive components"
+    description: "Challenges WCAG 2.1 AA compliance, keyboard operation, screen reader support, color contrast, and touch targets"
+
+  - name: Data Privacy Challenger
+    file: data-privacy.md
+    when: always
+    suggest-when: "collecting, storing, processing, or sharing user data, analytics, tracking, or third-party integrations that receive user information"
+    description: "Challenges data minimization, storage policies, third-party disclosure, anonymization, and user data control"
+
+  - name: Head of Product Challenger
+    file: head-of-product.md
+    when: always
+    suggest-when: "product strategy, feature prioritization, roadmap decisions, resource allocation, cross-team dependencies, user retention, product-market fit, or initiatives needing stakeholder alignment"
+    description: "Challenges strategic alignment, roadmap fit, opportunity cost, stakeholder buy-in, and success metrics"
+
+  - name: Marketing Challenger
+    file: marketing.md
+    when: always
+    suggest-when: "user-facing feature, product launch, landing page, public-facing content, pricing, onboarding flow, or growth strategy"
+    description: "Challenges target audience definition, discovery channels, SEO, positioning, value proposition, and launch timing"

@@ -15,12 +15,12 @@ All challengers live in the `gallery/` directory. None are active by default —
 **When to suggest:** After clarifying questions are complete and before proposing approaches.
 
 **How to suggest:**
-1. Read all `.md` files in the `gallery/` directory
-2. Each challenger has a `suggest-when` field in its frontmatter:
-   - Most challengers describe the context where they're relevant (e.g., "The task involves authentication, APIs, or payment processing")
+1. Read `gallery/index.yaml` — this is a lightweight catalog with each challenger's `name`, `suggest-when`, and one-line `description`. Do NOT read the individual challenger `.md` files at this stage.
+2. Each entry has a `suggest-when` field:
+   - Most challengers describe the context where they're relevant (e.g., "software architecture, APIs, databases")
    - Devil's Advocate has `suggest-when: always` — it is **always suggested** regardless of context, because it's universally useful
 3. Match the task context (user request + Q&A clarifications + project context) against each `suggest-when` description
-4. Present all matched challengers to the user:
+4. Present all matched challengers to the user (use the `description` from the index for context):
 
 > "For this session, I'd recommend these challengers:
 > - **Devil's Advocate** — always recommended to challenge assumptions
@@ -32,18 +32,21 @@ All challengers live in the `gallery/` directory. None are active by default —
 5. The user can approve all, remove some, or add others from the gallery
 6. Approved challengers are active for all subsequent challenge dispatches in this session
 7. If the user declines all challengers, proceed but note: "No challengers active — skipping stress-test steps."
-8. If no `.md` files are found in the `gallery/` directory, skip the suggestion step and proceed without challengers. Note: "No challengers available in gallery — skipping challenge steps."
+8. If `gallery/index.yaml` is missing or empty, skip the suggestion step and proceed without challengers. Note: "No challengers available in gallery — skipping challenge steps."
 
 **Important:** Challenger selection is session-only. Each brainstorming session evaluates the gallery fresh.
 
 ## Loading Challengers
 
+Full challenger definitions are loaded **only at dispatch time**, not during suggestion. This keeps context focused and reduces token usage.
+
 1. Start with the challengers the user approved during suggest-and-confirm
-2. Each file has YAML frontmatter with `name` and `when` fields
-3. The `when` field accepts exactly two values:
+2. **Now** read each approved challenger's `.md` file from the `gallery/` directory (the `file` field in `index.yaml` gives the filename)
+3. Each file has YAML frontmatter with `name` and `when` fields
+4. The `when` field accepts exactly two values:
    - `always` — dispatched for every challenge
    - `ui-only` — dispatched only when the change involves UI/UX (layout, styling, visual hierarchy, animations, component design)
-4. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
+5. Dispatch all challengers where `when: always`, plus those with `when: ui-only` if the change involves UI/UX
 
 ## Shared Context for All Challengers
 
